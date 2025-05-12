@@ -4,7 +4,6 @@ config:
   theme: dark
   layout: elk
 ---
-
 flowchart TB
 subgraph AuthSession["Authentication & Session"]
 	direction TB
@@ -176,28 +175,31 @@ subgraph CLI["@shopify/cli: CLI Core (Oclif router/plugin loader)"]
 	HelpSystem["Help & Usage Generator"]
 	UpdateNotifier["Version Checker & Update Notifier"]
 	ContextProvider["Context & Config Provider"]
-end
-  EntryPoint --> Router
-  Router --> PreHooks
-  PreHooks --> CommandExec
-  Router -.-> PluginLoader & HelpSystem
-  PreHooks -.-> ContextProvider
-  CommandExec --> PostHooks
-  CommandExec -- on error --> ErrorHandler
-  PostHooks --> UpdateNotifier
-  CLI -- loads commands from --- APP["APP"] & EXTENSION["EXTENSION"] & THEME["THEME"] & HYDROGEN["HYDROGEN"]
-  CLI -- loads --- App_Plugin & Theme_Plugin & Cloudflare_Tunnel_Plugin & DidYouMean_Plugin & Hydrogen_Plugin
-  APP -- relies on --> FOUNDATION
-  EXTENSION -- relies on --> FOUNDATION
-  THEME -- relies on --> FOUNDATION
-  HYDROGEN -- relies on --> FOUNDATION
-  App_Plugin -- relies on --> FOUNDATION
-  Theme_Plugin -- relies on --> FOUNDATION
-  Cloudflare_Tunnel_Plugin -- relies on --> FOUNDATION
-  DidYouMean_Plugin -- relies on --> FOUNDATION
-  Hydrogen_Plugin -- relies on --> FOUNDATION
-  CREATE_APP["@shopify/create-app: App Generator"] -- initializes via --- APP
-  CREATE_HYDRO["@shopify/create-hydrogen: Hydrogen Generator"] -- initializes via --- HYDROGEN
-  CREATE_APP -- uses --> FOUNDATION
-  CREATE_HYDRO -- uses --> FOUNDATION
+end                          
+
+EntryPoint --> Router
+Router --> PreHooks
+PreHooks --> CommandExec
+Router -.-> PluginLoader & HelpSystem
+PreHooks -.-> ContextProvider
+CommandExec --> PostHooks
+CommandExec -- on error --> ErrorHandler
+PostHooks --> UpdateNotifier
+CLI -- loads commands from --- APP["APP"] & EXTENSION["EXTENSION"] & THEME["THEME"] & HYDROGEN["HYDROGEN"]
+CLI -- loads --- App_Plugin & Theme_Plugin & Cloudflare_Tunnel_Plugin & DidYouMean_Plugin & Hydrogen_Plugin
+APP -- relies on --> FOUNDATION
+EXTENSION -- relies on --> FOUNDATION
+THEME -- relies on --> FOUNDATION
+HYDROGEN -- relies on --> FOUNDATION
+App_Plugin -- relies on --> FOUNDATION
+Theme_Plugin -- relies on --> FOUNDATION
+Cloudflare_Tunnel_Plugin -- relies on --> FOUNDATION
+DidYouMean_Plugin -- relies on --> FOUNDATION
+Hydrogen_Plugin -- relies on --> FOUNDATION
+CREATE_APP["@shopify/create-app: App Generator"] -- initializes via --- APP
+CREATE_HYDRO["@shopify/create-hydrogen: Hydrogen Generator"] -- initializes via --- HYDROGEN
+CREATE_APP -- uses --> FOUNDATION
+CREATE_HYDRO -- uses --> FOUNDATION
+CLI --> DOMAIN_MODULES
+DOMAIN_MODULES --> FOUNDATION
 ```
